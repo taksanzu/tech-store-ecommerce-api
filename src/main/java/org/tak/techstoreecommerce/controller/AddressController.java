@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.tak.techstoreecommerce.dto.AddressDTO;
 import org.tak.techstoreecommerce.model.User;
-import org.tak.techstoreecommerce.service.AddressServiceImpl;
+import org.tak.techstoreecommerce.service.AddressService;
 import org.tak.techstoreecommerce.util.AuthUtil;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 public class AddressController {
 
     @Autowired
-    private AddressServiceImpl addressServiceImpl;
+    private AddressService addressServiceImpl;
 
     @Autowired
     private AuthUtil authUtil;

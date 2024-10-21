@@ -20,8 +20,6 @@ public class SignupRequest {
     @Email
     private String email;
 
-    @Setter
-    @Getter
     private Set<String> role;
 
     @NotBlank

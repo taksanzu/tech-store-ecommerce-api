@@ -69,7 +69,7 @@ public class WebSecurityConfig {
 
     @Bean
     public AccessDeniedHandler accessDeniedHandler() {
-        return new AccessDeniedHandlerImpl(); // Bạn có thể tùy chỉnh handler này nếu cần
+        return new AccessDeniedHandlerImpl();
     }
 
     @Bean
