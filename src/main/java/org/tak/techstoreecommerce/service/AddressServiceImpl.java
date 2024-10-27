@@ -84,7 +84,7 @@ public class AddressServiceImpl implements AddressService {
 
         User user = updatedAddress.getUser();
         List<Address> addresses = user.getAddresses();
-        addresses.removeIf(a -> a.getId().equals(addressId));
+        addresses.removeIf(a -> a.getAddressId().equals(addressId));
         addresses.add(updatedAddress);
         userRepository.save(user);
 
@@ -97,7 +97,7 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() -> new ResourceNotFoundException("Address", "addressId", addressId));
         User user = address.getUser();
         List<Address> addresses = user.getAddresses();
-        addresses.removeIf(a -> a.getId().equals(addressId));
+        addresses.removeIf(a -> a.getAddressId().equals(addressId));
         userRepository.save(user);
         addressRepository.delete(address);
 

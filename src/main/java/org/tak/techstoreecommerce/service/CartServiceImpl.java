@@ -109,7 +109,7 @@ public class CartServiceImpl implements CartService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "productId", productId));
 
-        CartItem cartItem = cartItemRepository.findCartItemByProductIdAndCartId(cart.getId(), productId);
+        CartItem cartItem = cartItemRepository.findCartItemByProductIdAndCartId(cart.getCartId(), productId);
 
         if (cartItem != null) {
             throw new APIException("Product " + product.getProductName() + " already exists in the cart");
@@ -153,7 +153,7 @@ public class CartServiceImpl implements CartService {
     public CartDTO updateProductQuantityInCart(Long productId, Integer quantity) {
         String email = authUtil.loggedInEmail();
         Cart userCart = cartRepository.findCartByEmail(email);
-        Long cartId  = userCart.getId();
+        Long cartId  = userCart.getCartId();
 
         Cart cart = cartRepository.findById(cartId)
                 .orElseThrow(() -> new ResourceNotFoundException("Cart", "cartId", cartId));
@@ -200,7 +200,7 @@ public class CartServiceImpl implements CartService {
 
         CartItem updatedItem = cartItemRepository.save(cartItem);
         if(updatedItem.getQuantity() == 0){
-            cartItemRepository.deleteById(updatedItem.getId());
+            cartItemRepository.deleteById(updatedItem.getCartItemId());
         }
 
 

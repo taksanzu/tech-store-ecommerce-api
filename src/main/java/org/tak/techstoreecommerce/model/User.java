@@ -26,7 +26,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long id;
+    private Long userId;
 
     @NotBlank
     @Size(min = 5, max = 30)
@@ -72,4 +72,10 @@ public class User {
             cascade = {CascadeType.PERSIST, CascadeType.MERGE},
             orphanRemoval = true)
     private Set<Product> products;
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user",
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE},
+            orphanRemoval = true)
+    private Set<Order> orders;
 }

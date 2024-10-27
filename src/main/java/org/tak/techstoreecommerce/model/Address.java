@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long addressId;
 
     @NotBlank
     @Size(min = 5, message = "Street name must be at least 5 characters long")
