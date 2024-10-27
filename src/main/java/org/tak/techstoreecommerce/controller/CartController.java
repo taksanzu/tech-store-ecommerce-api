@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.tak.techstoreecommerce.dto.CartDTO;
 import org.tak.techstoreecommerce.model.Cart;
 import org.tak.techstoreecommerce.repository.CartRepository;
-import org.tak.techstoreecommerce.service.CartServiceImpl;
+import org.tak.techstoreecommerce.service.CartService;
 import org.tak.techstoreecommerce.util.AuthUtil;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/api/cart")
 public class CartController {
     @Autowired
-    private CartServiceImpl cartServiceImpl;
+    private CartService cartService;
 
     @Autowired
     private AuthUtil authUtil;
@@ -26,7 +26,7 @@ public class CartController {
 
     @GetMapping
     public List<CartDTO> getAllCart() {
-        return cartServiceImpl.getAllCart();
+        return cartService.getAllCart();
     }
 
     @GetMapping("/users")
@@ -34,14 +34,14 @@ public class CartController {
         String email = authUtil.loggedInEmail();
         Cart cart = cartRepository.findCartByEmail(email);
         Long cartId = cart.getId();
-        CartDTO cartDTO = cartServiceImpl.getCartById(email, cartId);
+        CartDTO cartDTO = cartService.getCartById(email, cartId);
         return new ResponseEntity<>(cartDTO, HttpStatus.OK);
     }
 
     @PostMapping("/product/{productId}/quantity/{quantity}")
     public ResponseEntity<CartDTO> addProductToCart(@PathVariable Long productId, @PathVariable Integer quantity) {
 
-        CartDTO cartDTO = cartServiceImpl.addToCart(productId, quantity);
+        CartDTO cartDTO = cartService.addToCart(productId, quantity);
         return new ResponseEntity<>(cartDTO, HttpStatus.OK);
     }
 
@@ -49,7 +49,7 @@ public class CartController {
     public ResponseEntity<CartDTO> updateCartProduct(@PathVariable Long productId,
                                                      @PathVariable String operation) {
 
-        CartDTO cartDTO = cartServiceImpl.updateProductQuantityInCart(productId,
+        CartDTO cartDTO = cartService.updateProductQuantityInCart(productId,
                 operation.equalsIgnoreCase("delete") ? -1 : 1);
 
         return new ResponseEntity<CartDTO>(cartDTO, HttpStatus.OK);
@@ -58,7 +58,7 @@ public class CartController {
     @DeleteMapping("/{cartId}/product/{productId}")
     public ResponseEntity<String> deleteProductFromCart(@PathVariable Long cartId,
                                                         @PathVariable Long productId) {
-        String status = cartServiceImpl.deleteProductFromCart(cartId, productId);
+        String status = cartService.deleteProductFromCart(cartId, productId);
 
         return new ResponseEntity<String>(status, HttpStatus.OK);
     }

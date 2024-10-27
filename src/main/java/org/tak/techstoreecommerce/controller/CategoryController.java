@@ -7,8 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.tak.techstoreecommerce.dto.CategoryDTO;
-import org.tak.techstoreecommerce.service.CategoryServiceImpl;
-
+import org.tak.techstoreecommerce.service.CategoryService;
 import java.util.List;
 
 @RestController
@@ -16,7 +15,7 @@ import java.util.List;
 public class CategoryController {
 
     @Autowired
-    private CategoryServiceImpl categoryService;
+    private CategoryService categoryService;
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
