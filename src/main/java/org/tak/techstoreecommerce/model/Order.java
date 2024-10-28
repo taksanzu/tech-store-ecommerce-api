@@ -1,6 +1,7 @@
 package org.tak.techstoreecommerce.model;
 
 import jakarta.persistence.*;
+import jdk.jfr.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long OrderId;
 
+    @Timestamp
     private Date orderDate;
 
     private String orderStatus;
