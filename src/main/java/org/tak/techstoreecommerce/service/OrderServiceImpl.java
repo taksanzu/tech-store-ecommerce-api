@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderItemRepository orderItemRepository;
-    
+
     @Autowired
     private ModelMapper modelMapper;
 
