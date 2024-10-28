@@ -1,6 +1,5 @@
-package org.tak.techstoreecommerce.model;
+package org.tak.techstoreecommerce.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,15 +7,11 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 import java.util.List;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "order")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long OrderId;
+public class OrderDTO {
+    private Long orderId;
 
     private Date orderDate;
 
@@ -26,15 +21,12 @@ public class Order {
 
     private String shippingAddress;
 
-    private String billingAddress;
-
     private String paymentMethod;
 
     private String paymentStatus;
 
-    @ManyToOne
-    private User user;
+    private Long userId;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    private List<OrderItemDTO> orderItems;
+
 }
