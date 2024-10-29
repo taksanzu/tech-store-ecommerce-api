@@ -13,7 +13,7 @@ import org.tak.techstoreecommerce.util.AuthUtil;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/api/carts")
 public class CartController {
     @Autowired
     private CartService cartService;

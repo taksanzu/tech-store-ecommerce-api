@@ -80,12 +80,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
-                                .requestMatchers("/v3/api-docs/**").permitAll()
                                 .requestMatchers("/h2-console/**").permitAll()
-                                //.requestMatchers("/api/admin/**").permitAll()
-                                //.requestMatchers("/api/public/**").permitAll()
-                                .requestMatchers("/swagger-ui/**").permitAll()
-                                .requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers("/images/**").permitAll()
                                 .anyRequest().authenticated()
                 );
@@ -112,7 +107,6 @@ public class WebSecurityConfig {
     @Bean
     public CommandLineRunner initData(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         return args -> {
-            // Retrieve or create roles
             Role userRole = roleRepository.findByRolename(AppRole.ROLE_USER)
                     .orElseGet(() -> {
                         Role newUserRole = new Role(AppRole.ROLE_USER);
@@ -132,7 +126,7 @@ public class WebSecurityConfig {
                     });
 
             Set<Role> userRoles = Set.of(userRole);
-            Set<Role> sellerRoles = Set.of(sellerRole);
+            Set<Role> sellerRoles = Set.of(userRole, sellerRole);
             Set<Role> adminRoles = Set.of(userRole, sellerRole, adminRole);
 
 

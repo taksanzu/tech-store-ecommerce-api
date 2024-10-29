@@ -12,6 +12,8 @@ import org.tak.techstoreecommerce.repository.CartRepository;
 import org.tak.techstoreecommerce.repository.OrderItemRepository;
 import org.tak.techstoreecommerce.repository.OrderRepository;
 
+import java.util.List;
+
 @Service
 public class OrderServiceImpl implements OrderService {
     @Autowired
@@ -47,5 +49,11 @@ public class OrderServiceImpl implements OrderService {
 
         OrderDTO orderDTO = modelMapper.map(order, OrderDTO.class);
         return orderDTO;
+    }
+
+    @Override
+    public List<OrderDTO> getAllOrdersByUser(String email) {
+        List<Order> orderList = orderRepository.findOrdersByUserEmail(email);
+        return orderList.stream().map(order -> modelMapper.map(order, OrderDTO.class)).toList();
     }
 }
