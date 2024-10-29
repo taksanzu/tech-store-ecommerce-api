@@ -8,4 +8,6 @@ public interface OrderService {
     OrderDTO createOrder(String email);
 
     List<OrderDTO> getAllOrdersByUser(String email);
+
+    OrderDTO getOrderById(Long orderId);
 }

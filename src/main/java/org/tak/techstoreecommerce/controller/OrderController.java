@@ -1,11 +1,9 @@
 package org.tak.techstoreecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.tak.techstoreecommerce.dto.OrderDTO;
 import org.tak.techstoreecommerce.service.OrderService;
 import org.tak.techstoreecommerce.util.AuthUtil;
@@ -28,11 +26,17 @@ public class OrderController {
         return ResponseEntity.ok(orderDTOList);
     }
 
+    @GetMapping("/{orderId}")
+    public ResponseEntity<OrderDTO> getOrderById(@PathVariable Long orderId) {
+        OrderDTO orderDTO = orderService.getOrderById(orderId);
+        return ResponseEntity.ok(orderDTO);
+    }
+
     @PostMapping
     public ResponseEntity<OrderDTO> createOrder() {
         String email = authUtil.loggedInEmail();
         OrderDTO orderDTO = orderService.createOrder(email);
-        return ResponseEntity.ok(orderDTO);
+        return new ResponseEntity<>(orderDTO, HttpStatus.CREATED);
     }
 
 }

@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.tak.techstoreecommerce.dto.OrderDTO;
+import org.tak.techstoreecommerce.exception.ResourceNotFoundException;
 import org.tak.techstoreecommerce.model.Cart;
 import org.tak.techstoreecommerce.model.CartItem;
 import org.tak.techstoreecommerce.model.Order;
@@ -55,5 +56,11 @@ public class OrderServiceImpl implements OrderService {
     public List<OrderDTO> getAllOrdersByUser(String email) {
         List<Order> orderList = orderRepository.findOrdersByUserEmail(email);
         return orderList.stream().map(order -> modelMapper.map(order, OrderDTO.class)).toList();
+    }
+
+    @Override
+    public OrderDTO getOrderById(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Order", "id", orderId));
+        return modelMapper.map(order, OrderDTO.class);
     }
 }

@@ -12,12 +12,20 @@ import java.util.List;
 @NoArgsConstructor
 public class ProductDTO {
     private Long productId;
+
     private String productName;
+
     private String productDescription;
+
     private Double productPrice;
+
     private Double discount;
+
     private Double discountedPrice;
+
     private Integer productStock;
+
     private Long categoryId;
+
     private List<String> productImages = new ArrayList<>();
 }
